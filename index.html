@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>no hay memoria sino presencia infinita</title>
+    <script src="p5.min.js" charset="utf-8"></script>
+
+
+
+<script src="https://www.gstatic.com/firebasejs/7.13.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.13.0/firebase-analytics.js"></script>
+
+
+<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+<script>
+  // Initialize Firebase
+var config = {
+   apiKey: "AIzaSyDBdMclEpPV_ckWkkacZUg8lqaTZS3jPpU",
+    authDomain: "novvv-5539f.firebaseapp.com",
+    databaseURL: "https://novvv-5539f.firebaseio.com",
+    projectId: "novvv-5539f",
+    storageBucket: "novvv-5539f.appspot.com",
+    messagingSenderId: "376040842557",
+  };
+
+  firebase.initializeApp(config);
+   var database = firebase.database();
+
+</script>
+
+
+
+
+
+
+    <script type="text/javascript">
+
+      function setup(){
+        createCanvas(displayWidth, displayHeight);
+        background("white")
+        database.ref('draw').on('child_added', function(data){
+          line(data.val().pmouseX,data.val().pmouseY,data.val().mouseX,data.val().mouseY);
+        })
+      }
+
+      function draw(){
+        if(mouseIsPressed){
+          line(pmouseX,pmouseY,mouseX,mouseY)
+          database.ref('draw').push({
+            pmouseX:pmouseX,
+            pmouseY:pmouseY,
+            mouseX:mouseX,
+            mouseY:mouseY
+
+          })
+        }
+      }
+      
+      function touchMoved() {
+  line(mouseX, mouseY, pmouseX, pmouseY)
+   database.ref('draw').push({
+            pmouseX:pmouseX,
+            pmouseY:pmouseY,
+            mouseX:mouseX,
+            mouseY:mouseY
+
+          })
+  
+  ;
+  return false;
+}
+
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
